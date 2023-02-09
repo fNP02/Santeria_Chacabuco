@@ -1,0 +1,62 @@
+.mainIndex {
+  background: url('/src/assets/fondo.jpg') center center / cover no-repeat fixed;
+  height: 90vh;
+
+  #title {
+    @include flex(row, nowrap, center, center);
+    text-align: center;
+    height: 90vh;
+    position: relative;
+    overflow: hidden;
+  }
+  #title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 60px;
+    text-transform: uppercase;
+    color: #fff;
+    position: relative;
+    animation-duration: 1500ms;
+    animation-name: fadeInDown;
+  }
+}
+
+// .parallax__container {
+// 	clip: rect(0, auto, auto, 0);
+// 	height: 100%;
+// 	left: 0;
+// 	overflow: hidden;
+// 	position: absolute;
+// 	top: 0;
+// 	width: 100%;
+// 	z-index: -100;
+// }
+
+// .parallax {
+// 	position: fixed;
+// 	top: 0;
+// 	transform: translate3d(0, 0, 0);
+// 	transform-style: preserve-3d;
+// 	width: 100%;
+// 	background-position: center;
+// 	background-repeat: no-repeat;
+// 	background-size: cover;
+// }
+
+// <main className="mainIndex">
+//       <div className="parallax" data-parallax-image="./images/fondo.jpg"></div>
+//       <div id="title">
+//         <h1 className="animate__animated animate__fadeInDown">
+//           Santería Chacabuco
+//         </h1>
+//       </div>
+//     </main>

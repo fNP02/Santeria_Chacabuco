@@ -1,0 +1,38 @@
+.footer{
+    height: 300px;
+    background-color: #111;
+    .footer__principal{
+        padding: 50px 15px 0px;
+        @include flex(row, wrap, space-evenly, flex-start);
+        //@include flex(row, wrap, space-evenly,center);
+        color: #fff;
+        & .footer__principal__menu{
+            & h4{
+                font-weight: 700;
+            }
+        }
+        & .footer__principal__contacto{
+            ul>li{
+                display: flex;
+                gap: 10px;
+                padding: 0.2rem;
+                &>i{
+                    font-size: 1.3rem;
+                    width: 20px;
+                }
+            }
+        }
+        & .footer__principal__compartir{
+            background-color: gray;
+        } 
+    }
+
+    .footer__copyright{
+        margin-top: 3rem;
+        color: #fff;
+        font-size: small;
+        display: flex;
+        justify-content: center;
+        
+    }
+}

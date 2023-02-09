@@ -1,0 +1,108 @@
+
+.header{
+    width: 100%;
+    background-color: $colorFondoHeader;
+    padding: 0.3rem 3%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    min-height: 10vh;
+    @include flex(row,  wrap, space-between, center);
+    .header__button-menu{
+        background-color:$colorBotonMenu;
+        display: none;
+        cursor: pointer;
+
+        @include mediaMobile(){
+            display: block;
+        }
+        @include mediaTablet(){
+            display: block;
+        }
+        
+        svg{
+            width: 2.5rem;
+            height: 1.5rem;
+            fill: #ffffff;
+            margin: 12px 13px;
+        }
+    }
+
+    .header__logo{
+        margin-left: 5%;
+    }
+    .header__nav{
+        background-color: $colorFondoHeader; 
+        padding-right: 5%;
+        @include mediaTablet(){
+            width: 100%;
+            opacity: 0;
+            height:0;
+            pointer-events: none;
+            overflow: hidden;
+            transition: all .5s ease;
+            @include flex( column, wrap, center, flex-end ); //align-items:flex-end; //se pone a la derecha el menu  
+            
+            &.activo{      //cuando añado clase activo a nav, aparece
+                opacity: 1;
+                height: 180px;
+                pointer-events: auto;
+            } 
+        }
+        @include mediaMobile(){
+            width: 100%;
+            opacity: 0;
+            height:0;
+            pointer-events: none;
+            overflow: hidden;
+            transition: all .5s ease;
+            @include flex( column, wrap, center, center );
+
+            &.activo{      //cuando añado clase activo a nav, aparece
+                opacity: 1;
+                height: 180px;
+                pointer-events: auto;
+                //align-items:flex-start;
+            } 
+        }
+        .header__nav__ul{
+           @include flex(row,wrap,center,center);
+            
+            @include mediaTablet(){
+                flex-direction: column;
+                align-items: flex-end; //todos terminan juntitos
+            }
+            @include mediaMobile(){
+                flex-direction: column;
+            }
+            
+            .header__nav__ul__li{
+                text-transform: uppercase;
+                color: $colorFuenteMenu;
+                margin: 0 0.6rem;
+                list-style: none;
+                text-decoration: none;
+                
+                & :hover{
+                    color: #8e0d08;
+                    font-weight: 500;
+                }
+                a.activePage{
+                    color: #8e0d08;
+                    font-weight: 700;
+                }
+
+                @include mediaMobile(){
+                    margin: 0px;
+                    padding: 6px 10px;
+                    
+                }
+                @include mediaTablet(){
+                    margin: 0px;
+                    padding: 6px 10px;
+                    
+                }
+            }
+        }
+    }
+}
