@@ -1,0 +1,57 @@
+
+.productsPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .productsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 40px;
+
+    .product {
+      //border: 1px solid black;
+      height: 420px;
+      width: 300px;
+      box-shadow: 2px 1px 10px #666;
+      transition: 0.2s;
+      overflow: hidden;
+      &:hover{
+        box-shadow: 15px 10px 10px #666;
+        transition: 0.2s;
+      }
+      &__img {
+        height: 300px;
+        overflow: hidden; 
+        &:hover{
+        cursor: pointer;
+        }       
+        .img {
+          width: 100%;
+        }
+      }
+      &__caption {
+        margin: 5px;
+        overflow: hidden;
+        @include flex(column, nowrap, flex-end, center);
+        &-title {
+          font-weight: bold;
+          font-size: large;
+          &:hover{
+            cursor: pointer;
+            }   
+        }
+        &-monto {
+          & .monto {
+            font-size: 22px;
+            font-weight: lighter;
+          }
+        }
+        &-description {
+          font-weight: lighter;
+          font-style: oblique;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

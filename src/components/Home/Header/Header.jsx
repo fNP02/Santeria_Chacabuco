@@ -10,10 +10,12 @@ function Header() {
   };
 
   return (
+<div className="headerContainer">
+
     <header className="header">
       <div className="header__logo">
         <Link to="/">
-          <img src="./src/assets/logo.png" alt="" />
+          <img src="/src/assets/logo.png" alt="" />
         </Link>
       </div>
 
@@ -62,6 +64,7 @@ function Header() {
         </ul>
       </nav>
     </header>
+</div>
   );
 }
 

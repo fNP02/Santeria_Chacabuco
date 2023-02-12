@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "Abre Caminos",
+    "price": 500,
+    "img": "https://ss-static-01.esmsv.com/id/157859/productos/obtenerimagen/?id=334&useDensity=true&width=1920&height=1080&tipoEscala=fit",
+    "description": "Esta es una vela askf sjdflknsdkf snjdkgndcdk flnsk lnklkjgfhfg fhjgv"
+  },
+
+  {
+    "id": 2,
+    "title": "TITULO 2",
+    "price": 5000,
+    "img": "https://ss-static-01.esmsv.com/id/157859/productos/obtenerimagen/?id=334&useDensity=true&width=1920&height=1080&tipoEscala=fit"
+  },
+  {
+    "id": 3,
+    "title": "TITULO 2",
+    "price": 1000,
+    "img": "https://ss-static-01.esmsv.com/id/157859/productos/obtenerimagen/?id=334&useDensity=true&width=1920&height=1080&tipoEscala=fit",
+    "description": "Esta es una vela"
+  },
+  {
+    "id": 4,
+    "title": "TITULO 2",
+    "price": 1000,
+    "img": "https://ss-static-01.esmsv.com/id/157859/productos/obtenerimagen/?id=334&useDensity=true&width=1920&height=1080&tipoEscala=fit"
+  },
+  {
+    "id": 5,
+    "title": "TITULO 2",
+    "price": 1000,
+    "img": "https://ss-static-01.esmsv.com/id/157859/productos/obtenerimagen/?id=334&useDensity=true&width=1920&height=1080&tipoEscala=fit"
+  },
+  {
+    "id": 6,
+    "title": "TITULO 2",
+    "price": 1000,
+    "img": "https://ss-static-01.esmsv.com/id/157859/productos/obtenerimagen/?id=334&useDensity=true&width=1920&height=1080&tipoEscala=fit"
+  },
+  {
+    "id": 7,
+    "title": "TITULO 2",
+    "price": 1000,
+    "img": "https://ss-static-01.esmsv.com/id/157859/productos/obtenerimagen/?id=334&useDensity=true&width=1920&height=1080&tipoEscala=fit"
+  }
+]

@@ -1,0 +1,38 @@
+.productCard {
+  width: 1170px;
+  margin: auto;
+  .div-volver {
+    margin: 20px 0;
+    padding: 8px 15px;
+    color: #8e0d08;
+    background-color: rgba(241, 240, 238, 0.5);
+  }
+  .div-product {
+    @include flex(row, nowrap, null, flex-start);
+    .div-img {
+      width: 466px;
+    }
+  }
+
+  .caption {
+    flex-grow: 1;
+    .title {
+      font-size: 25px;
+      color: #333;
+      margin: 10px 0 50px 30px;
+    }
+    .price {
+        margin: 40px 0;
+      text-align: center;
+      color: #333;
+      font-size: 150%;
+      span {
+        font-size: 150%;
+        font-weight: bold;
+      }
+    }
+    .description{
+        margin: 10px 30px;
+    }
+  }
+}
