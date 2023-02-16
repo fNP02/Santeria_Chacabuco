@@ -1,15 +1,22 @@
 import React from "react";
 import { Card } from "./Card";
-import { useProducts } from "../../../store/Products";
+import { useProducts } from "../../store/Products";
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import prueba from "../../../JSONprueba.json";
+import prueba from "../../JSONprueba.json";
+
+import { useResults } from "../../store/Busqueda"; // para ver si mostrar busqueda o productos
 
 export const Products = () => {
   const { posts } = useProducts();
   const { getPosts } = useProducts();
+
+  //aca seecciona si es de busqueda o desde productos
+  const { busquedaActiva, resultsFound } = useResults();
+  // const aMostrar = busquedaActiva ? prueba : resultsFound;
+  // console.log(aMostrar);
 
   useEffect(() => {
     //para que se ejecute una vez
@@ -24,9 +31,13 @@ export const Products = () => {
     <div className="productsPage">
       <h1>Productos</h1>
       <div className="productsContainer">
-        {prueba.map((product) => (
+        {resultsFound.length>0?(
+        resultsFound.map((product) => (
           <div key={product.id} className="product">
-            <Link data-active="productById" to={`/productos/productById/${product.id}`}>
+            <Link
+              data-active="productById"
+              to={`/productos/productById/${product.id}`}
+            >
               <div className="product__img">
                 <img
                   className="img"
@@ -53,7 +64,11 @@ export const Products = () => {
               </div>
             </div>
           </div>
-        ))}
+        ))):(
+          <div>
+            <p>{'No se encontraron Productos para tu busqueda :('}</p>
+          </div>
+        )}
       </div>
     </div>
   );

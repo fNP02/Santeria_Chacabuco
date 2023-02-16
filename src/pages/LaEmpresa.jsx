@@ -1,6 +1,10 @@
+import Header from "../components/Home/Header/Header"
 
 export const LaEmpresa = () => {
   return (
-    <div>LaEmpresa</div>
+    <>
+    <Header/>
+    <div>La Empresa</div>
+    </>
   )
 }

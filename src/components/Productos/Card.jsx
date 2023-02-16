@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useProducts } from "../../../store/Products";
+import { useProducts } from "../../store/Products";
 import { useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
-import prueba from "../../../JSONprueba.json";
+import prueba from "../../JSONprueba.json";
 
 export const Card = () => {
   // const { getPosts } = useProducts();

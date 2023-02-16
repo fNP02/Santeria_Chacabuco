@@ -1,7 +1,11 @@
+import Header from "../components/Home/Header/Header"
 
 function ComoComprar() {
   return (
-    <div>ComoComprar</div>
+    <>
+    <Header/>
+    <div>Como Comprar</div>
+    </>
   )
 }
 

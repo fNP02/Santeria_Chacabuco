@@ -11,6 +11,7 @@ export const Landing = () => {
 export const Home = () => {
 return (
 <>
+<Header/>
               <ParallaxTitle />
               <SectionVentas />
               <Footer/>

@@ -1,3 +1,25 @@
+.div-searchProducts{
+  width: 1170px;
+  margin: 20px auto;
+  padding: 8px 15px;
+  color: #8e0d08;
+  background-color: rgba(241, 240, 238, 0.5);
+  .input{
+    padding: 3px 10px;
+    border:  1px solid #ccc;
+    border-radius: 3px;
+  }
+  .button{
+    padding: 4px 12px;
+    border-radius: 4px;
+    color: #a2a2a2;
+    background-color: #e6e6e6;
+    &:hover{
+      background-color: #8e0d08;
+      color: #fff;
+    }
+  }
+}
 
 .productsPage {
   display: flex;
