@@ -60,6 +60,13 @@ function Header() {
             <Link data-active="contacto" to="/contacto">
               Contacto
             </Link>
+
+            
+            <Link data-active="admin" to="/admin">
+        Admin
+      </Link>
+
+      
           </li>
         </ul>
       </nav>

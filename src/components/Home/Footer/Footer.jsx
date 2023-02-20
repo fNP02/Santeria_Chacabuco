@@ -11,7 +11,6 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 
-
 export const Footer = () => {
   return (
     <div>
@@ -23,27 +22,27 @@ export const Footer = () => {
               <li>
                 <Link data-active="index" to="/">
                   Bienvenido
-                </Link>{" "}
+                </Link>
               </li>
               <li>
                 <Link data-active="productos" to="/productos">
                   Productos
-                </Link>{" "}
+                </Link>
               </li>
               <li>
                 <Link data-active="como_comprar" to="/como_comprar">
                   Cómo Comprar
-                </Link>{" "}
+                </Link>
               </li>
               <li>
                 <Link data-active="la_empresa" to="/la_empresa">
                   La Empresa
-                </Link>{" "}
+                </Link>
               </li>
               <li>
                 <Link data-active="contacto" to="/contacto">
                   Contacto
-                </Link>{" "}
+                </Link>
               </li>
             </ul>
           </div>
@@ -51,11 +50,18 @@ export const Footer = () => {
             <ul>
               <li className="mail">
                 <FontAwesomeIcon icon={faEnvelope} />
-                <a href="mailto:santeriachacabuco@hotmail.com">santeriachacabuco@hotmail.com</a>
+                <a href="mailto:santeriachacabuco@hotmail.com">
+                  santeriachacabuco@hotmail.com
+                </a>
               </li>
               <li className="ubicacion">
                 <FontAwesomeIcon icon={faLocationDot} />
-                <a target='_blank' href="https://maps.google.com/maps?q=Santería Chacabuco, Bv. Chacabuco 21, Córdoba, Córdoba, Argentina">Santería Chacabuco, Bv. Chacabuco 21, Córdoba</a>
+                <a
+                  target="_blank"
+                  href="https://maps.google.com/maps?q=Santería Chacabuco, Bv. Chacabuco 21, Córdoba, Córdoba, Argentina"
+                >
+                  Santería Chacabuco, Bv. Chacabuco 21, Córdoba
+                </a>
               </li>
               <li className="telefono">
                 <FontAwesomeIcon icon={faPhone} />
@@ -63,15 +69,30 @@ export const Footer = () => {
               </li>
               <li className="whatsapp">
                 <FontAwesomeIcon icon={faWhatsapp} />
-                <a href="https://web.whatsapp.com/send?phone=+5493518026540" target="_blank" >+5493518026540</a>
+                <a
+                  href="https://web.whatsapp.com/send?phone=+5493518026540"
+                  target="_blank"
+                >
+                  +5493518026540
+                </a>
               </li>
               <li className="facebook">
                 <FontAwesomeIcon icon={faFacebook} />
-                <a href="https://www.facebook.com/100057038396959" target="_blank" >Santería Chacabuco</a>
+                <a
+                  href="https://www.facebook.com/100057038396959"
+                  target="_blank"
+                >
+                  Santería Chacabuco
+                </a>
               </li>
               <li className="instagram">
                 <FontAwesomeIcon icon={faInstagram} />
-                <a href="https://instagram.com/santeriachacabuco" target="_blank" >santeriachacabuco</a>
+                <a
+                  href="https://instagram.com/santeriachacabuco"
+                  target="_blank"
+                >
+                  santeriachacabuco
+                </a>
               </li>
             </ul>
           </div>
