@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Home } from "./pages/Home";
-import ComoComprar from "./pages/ComoComprar";
+import ComoComprarPAGE from "./pages/ComoComprarPAGE";
 import { Productos } from "./pages/Productos";
-import { LaEmpresa } from "./pages/LaEmpresa";
-import { Contacto } from "./pages/Contacto";
+import { LaEmpresaPAGE } from "./pages/LaEmpresaPAGE";
+import { ContactoPAGE } from "./pages/ContactoPAGE";
 import { Card } from "./components/Productos/Card";
 import { Admin } from "./components/Admin/Admin";
 
@@ -74,9 +74,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/productos" element={<Productos />} />
         <Route path="/productos/productById/:productId" element={<Card />} />
-        <Route path="/como_comprar" element={<ComoComprar />} />
-        <Route path="/la_empresa" element={<LaEmpresa />} />
-        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/como_comprar" element={<ComoComprarPAGE />} />
+        <Route path="/la_empresa" element={<LaEmpresaPAGE />} />
+        <Route path="/contacto" element={<ContactoPAGE />} />
 
         {/* Admin */}
         <Route path="/admin" element={<Admin />} />

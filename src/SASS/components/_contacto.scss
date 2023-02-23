@@ -1,0 +1,100 @@
+.contacto-div {
+  width: 1170px;
+  margin: auto;
+  @include mediaMobile(){
+    width: 100%;
+  }
+  @include mediaTablet(){
+    width: 100%;
+  }
+  .map {
+    width: 100%;
+    height: 300px;
+  }
+  .title {
+    font-size: 45px;
+    font-weight: 600;
+    margin-top: 30px;
+    @include mediaMobile(){
+      text-align: center;
+    }
+    @include mediaTablet(){
+      text-align: center;
+    }
+  }
+  .information {
+    display: flex;
+    @include mediaMobile(){
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px ;
+      }
+    @include mediaTablet(){
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px ;
+      }
+    .redes {
+      width: 40%;
+      @include mediaMobile(){
+        width: 100%;
+      }
+      @include mediaTablet(){
+        width: 100%;
+      }
+      ul {
+        p {
+          font-weight: bold;
+          margin-top: 10px;
+        }
+        a {
+          color: $colorPrincipal;
+        }
+        .icon {
+          color: $colorPrincipal;
+          margin-right: 10px;
+        }
+      }
+    }
+    .form {
+      color: $colorFuente;
+      width: 60%;
+      box-shadow: 2px 1px 10px #ccc;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      @include mediaMobile(){
+        width: 100%;
+      }
+      @include mediaTablet(){
+        width: 100%;
+      }
+      &__title {
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        input,
+        .input {
+          width: 100%;
+          border-bottom: 1px solid #ccc;
+          margin-bottom: 10px;
+        }
+        .input {
+          height: 150px;
+          resize: none;
+        }
+        .submit {
+          background-color: $colorPrincipal;
+          color: #fff;
+          padding: 5px 10px;
+          border-radius: 3px;
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+}

@@ -1,20 +1,26 @@
-.div-searchProducts{
-  width: 1170px;
+.div-searchProducts {
+  max-width: 1170px;
   margin: 20px auto;
   padding: 8px 15px;
   color: #8e0d08;
   background-color: rgba(241, 240, 238, 0.5);
-  .input{
+  @include mediaMobile(){
+    width: 100%;
+  }
+  @include mediaTablet(){
+    width: 100%;
+  }
+  .input {
     padding: 3px 10px;
-    border:  1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 3px;
   }
-  .button{
+  .button {
     padding: 4px 12px;
     border-radius: 4px;
     color: #a2a2a2;
     background-color: #e6e6e6;
-    &:hover{
+    &:hover {
       background-color: #8e0d08;
       color: #fff;
     }
@@ -27,10 +33,28 @@
   margin: 0 auto;
   flex-direction: row;
   justify-content: flex-end;
-  .productsCategories{
-    background-color: #a2a2a2;
-    flex-grow: 1;
+
+  .productsCategories {
+    background-color: rgba(241, 240, 238, 0.5);
     margin: 0 20px;
+    width: 240px;
+    .categories {
+      width: 100%;
+      .category {
+        button {
+          text-align: start;
+          width: 100%;
+          padding: 4px 30px 4px 12px;
+          border:1px solid #ccc;
+          border-radius: 3px;
+        }
+      }
+      .activeCaregory {
+        color: #fff;
+        background-color: #7f0b07;
+        border-radius: 4px;
+      }
+    }
   }
   .productsContainer {
     display: grid;
@@ -44,22 +68,22 @@
       box-shadow: 2px 1px 10px #666;
       transition: 0.2s;
       overflow: hidden;
-      &:hover{
+      &:hover {
         box-shadow: 15px 10px 10px #666;
         transition: 0.2s;
       }
       &__img {
         height: 270px;
-        overflow: hidden; 
+        overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
         //padding-top: 10px;  //empujarla un poquito hacia abajo
-        &:hover{
-        cursor: pointer;
-        }       
+        &:hover {
+          cursor: pointer;
+        }
         .img {
-          object-fit:contain;
+          object-fit: contain;
           width: 100%;
         }
       }
@@ -71,9 +95,9 @@
           text-align: center;
           font-weight: bold;
           font-size: large;
-          &:hover{
+          &:hover {
             cursor: pointer;
-            }   
+          }
         }
         &-monto {
           & .monto {

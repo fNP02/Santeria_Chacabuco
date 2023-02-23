@@ -1,0 +1,58 @@
+.laEmpresa-page {
+  max-width: 1170px;
+  margin: auto;
+  display: flex;
+  min-height: 500px;
+  @include mediaMobile(){
+    width: 100%;
+    flex-direction: column;
+  }
+  @include mediaTablet(){
+    width: 100%;
+    flex-direction: column;
+  }
+  .caption {
+    padding: 25px;
+    width: 50%;
+    @include mediaMobile(){
+      width: 100%;
+    }
+    @include mediaTablet(){
+      width: 100%;
+    }
+    .title{
+        text-align: center;
+        color: $colorPrincipal;
+        font-size: 45px;
+        font-weight: 600;
+    }
+    .description{
+        text-align: justify;
+        text-indent: 10px;
+        line-height: 1.5;
+        color: $colorFuente;
+        p{
+            margin-top: 20px;
+        }
+    }
+  }
+  .image {
+width: 50%;
+background: url("/src/assets/Images/exterior.jpeg");
+    background-size: cover ;
+    background-position: 75% center;
+    @include mediaMobile(){
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    @include mediaTablet(){
+      background-position: 75% 30%;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+  }
+}

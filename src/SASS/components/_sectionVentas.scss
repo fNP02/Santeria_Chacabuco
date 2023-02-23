@@ -3,6 +3,15 @@
   height: 150px;
   background-color: $colorPrincipal;
   color: #fff;
+  overflow: hidden;
+  @include mediaMobile(){
+    height: 300px;
+      @include flex(column, nowrap, space-evenly, center);
+  }
+  @include mediaTablet(){
+    height: 300px;
+      @include flex(column, nowrap, space-evenly, center);
+  }
   & > div {
     @include flex(row, wrap, center, center);
     & > img {

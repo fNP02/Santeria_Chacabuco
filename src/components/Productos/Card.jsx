@@ -3,6 +3,7 @@ import { useProducts } from "../../store/Products";
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
+import Header from "../Home/Header/Header";
 
 export const Card = () => {
   // const [product, setProduct] = useState([])
@@ -34,6 +35,8 @@ export const Card = () => {
   if(loading){return 'cargando'}
 
   return (
+    <>
+    <Header/>
     <div className="productCard">
       <div className="div-volver">
         <Link data-active="index" to="/productos">
@@ -59,5 +62,6 @@ export const Card = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };

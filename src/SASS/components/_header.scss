@@ -1,122 +1,134 @@
-.headerContainer{
-    box-shadow: 0 3px 10px #888;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background-color: #ffffff;
+.headerContainer {
+  box-shadow: 0 3px 10px #888;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #ffffff;
 
-
-    .header {
+  .header {
+    width: 100%;
+    background-color: $colorFondoHeader;
+    //padding: 0.3rem 3%;
+    max-width: 1170px;
+    height: 10vh;
+    min-height: 88px;
+    margin: auto;
+    padding-left: 20px;
+    @include mediaMobile() {
       width: 100%;
+    }
+    @include mediaTablet(){
+      width: 100%;
+
+    }
+
+    @include flex(row, wrap, space-between, center);
+    .header__button-menu {
+      background-color: $colorBotonMenu;
+      display: none;
+      cursor: pointer;
+      margin-right: 20px;
+
+      @include mediaMobile() {
+        display: block;
+      }
+      @include mediaTablet() {
+        display: block;
+      }
+
+      svg {
+        width: 2.5rem;
+        height: 1.5rem;
+        fill: #ffffff;
+        margin: 12px 13px;
+      }
+    }
+
+    // .header__logo {
+    //   //margin-left: 5%;
+    // }
+    .header__nav {
       background-color: $colorFondoHeader;
-      //padding: 0.3rem 3%;
-      width: 1170px;
-      height: 88px;
-      margin: auto;
-      //min-height: 10vh;
-      
-      @include flex(row, wrap, space-between, center);
-      .header__button-menu {
-        background-color: $colorBotonMenu;
-        display: none;
-        cursor: pointer;
-    
-        @include mediaMobile() {
-          display: block;
-        }
-        @include mediaTablet() {
-          display: block;
-        }
-    
-        svg {
-          width: 2.5rem;
-          height: 1.5rem;
-          fill: #ffffff;
-          margin: 12px 13px;
+      padding-right: 5%;
+      @include mediaTablet() {
+        width: 100%;
+        opacity: 0;
+        height: 0;
+        pointer-events: none;
+        overflow: hidden;
+        transition: all 0.5s ease;
+        @include flex(
+          column,
+          wrap,
+          center,
+          flex-end
+        ); //align-items:flex-end; //se pone a la derecha el menu
+
+        &.activo {
+          //cuando añado clase activo a nav, aparece
+          opacity: 1;
+          height: 180px;
+          pointer-events: auto;
         }
       }
-    
-      .header__logo {
-        //margin-left: 5%;
+      @include mediaMobile() {
+        width: 100%;
+        opacity: 0;
+        height: 0;
+        pointer-events: none;
+        overflow: hidden;
+        transition: all 0.5s ease;
+        @include flex(column, wrap, center, center);
+
+        &.activo {
+          //cuando añado clase activo a nav, aparece
+          opacity: 1;
+          height: 180px;
+          pointer-events: auto;
+          //align-items:flex-start;
+        }
       }
-      .header__nav {
-        background-color: $colorFondoHeader;
-        padding-right: 5%;
-        @include mediaTablet() {
-          width: 100%;
-          opacity: 0;
-          height: 0;
-          pointer-events: none;
-          overflow: hidden;
-          transition: all 0.5s ease;
-          @include flex(
-            column,
-            wrap,
-            center,
-            flex-end
-          ); //align-items:flex-end; //se pone a la derecha el menu
-    
-          &.activo {
-            //cuando añado clase activo a nav, aparece
-            opacity: 1;
-            height: 180px;
-            pointer-events: auto;
-          }
-        }
+      .header__nav__ul {
+        @include flex(row, wrap, center, center);
+
         @include mediaMobile() {
-          width: 100%;
-          opacity: 0;
-          height: 0;
-          pointer-events: none;
-          overflow: hidden;
-          transition: all 0.5s ease;
-          @include flex(column, wrap, center, center);
-    
-          &.activo {
-            //cuando añado clase activo a nav, aparece
-            opacity: 1;
-            height: 180px;
-            pointer-events: auto;
-            //align-items:flex-start;
-          }
+          flex-direction: column;
         }
-        .header__nav__ul {
-          @include flex(row, wrap, center, center);
-    
-          @include mediaTablet() {
-            flex-direction: column;
-            align-items: flex-end; //todos terminan juntitos
+        @include mediaTablet() {
+          flex-direction: column;
+          align-items: flex-end; //todos terminan juntitos
+        }
+
+        .header__nav__ul__li {
+          text-transform: uppercase;
+          color: $colorFuente;
+          margin: 0 0.6rem;
+          list-style: none;
+          text-decoration: none;
+
+          & :hover {
+            color: #8e0d08;
+            font-weight: 500;
           }
+          a.activePage {
+            color: #8e0d08;
+            font-weight: 700;
+          }
+
           @include mediaMobile() {
-            flex-direction: column;
+            margin: 0px;
+            padding: 6px 10px;
           }
-    
-          .header__nav__ul__li {
-            text-transform: uppercase;
-            color: $colorFuenteMenu;
-            margin: 0 0.6rem;
-            list-style: none;
-            text-decoration: none;
-    
-            & :hover {
-              color: #8e0d08;
-              font-weight: 500;
-            }
-            a.activePage {
-              color: #8e0d08;
-              font-weight: 700;
-            }
-    
-            @include mediaMobile() {
-              margin: 0px;
-              padding: 6px 10px;
-            }
-            @include mediaTablet() {
-              margin: 0px;
-              padding: 6px 10px;
-            }
+          @include mediaTablet() {
+            margin: 0px;
+            padding: 6px 10px;
           }
+        }
+        .activePage {
+          color: $colorPrincipal;
+          font-weight: bold;
         }
       }
     }
+  }
 }

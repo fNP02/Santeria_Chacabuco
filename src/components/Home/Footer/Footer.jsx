@@ -13,7 +13,7 @@ import {
 
 export const Footer = () => {
   return (
-    <div>
+    <>
       <footer className="footer">
         <div className="footer__principal">
           <div className="footer__principal__menu">
@@ -121,6 +121,6 @@ export const Footer = () => {
           <span>Copyright ©</span> | <span>Santería Chacabuco</span>
         </div>
       </footer>
-    </div>
+    </>
   );
 };
