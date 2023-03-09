@@ -388,6 +388,4 @@ export const AttributesAdmin = () => {
   );
 };
 
-/* Se ve bien? */
-/* hola */
-//si, correcto
+/* Se ve bien? ok*/
