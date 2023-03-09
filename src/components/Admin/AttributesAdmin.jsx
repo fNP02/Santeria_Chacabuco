@@ -51,7 +51,7 @@ export const AttributesAdmin = () => {
   const openModal = () => {
     setShowModal(true);
   };
-  const closeModal = () => {
+  const closeModalCrear = () => {
     setShowModal(false);
   };
   const openModalEdit = () => {
@@ -67,8 +67,9 @@ export const AttributesAdmin = () => {
   const [nuevoValor, setNuevoValor] = useState("");
   const [nuevoColor, setNuevoColor] = useState("");
 
+  //CREAR ATRIBUTO
   const handleNewName = (e) => {
-    setName(e.target.value);
+    setNewName(e.target.value);
   };
   const handleNewDescription = (e) => {
     setNewDescription(e.target.value);
@@ -76,6 +77,7 @@ export const AttributesAdmin = () => {
   const handleNewType = (e) => {
     setNewType(e.target.value);
   };
+
   const handleNewAttribute = () => {
     if (typeSelected === "") {
       setShowErrorMessage(true); // mostrar el mensaje de error si el usuario no ha seleccionado una opción válida
@@ -116,6 +118,12 @@ export const AttributesAdmin = () => {
     setNewAttribute([...newAttribute, attribute]);
   };
 
+  const handleCancelarCrear = () => {
+    closeModalCrear();
+    setNewAttribute([]);
+  };
+
+  //EDITAR ATRIBUTO
   const handleEditar = (id) => {
     const obj = attributes.find((item) => item[1][0].type._id === id);
     setEditando(obj);
@@ -123,7 +131,6 @@ export const AttributesAdmin = () => {
     esColor = obj[1][0].type.visualizationType == "Colores";
     console.log(esColor);
   };
-
   const handleAgregarValor = () => {
     if (nuevoValor.trim()) {
       setEditando([
@@ -249,6 +256,7 @@ export const AttributesAdmin = () => {
       </table>
 
       <button onClick={openModal}>Nuevo Atributo</button>
+
       {/* MODAL PARA CREAR */}
       <Modal
         isOpen={showModal}
@@ -259,13 +267,13 @@ export const AttributesAdmin = () => {
         <>
           <input
             type="text"
-            placeholder="Tipo de atributo"
+            placeholder="Nombre de atributo"
             onChange={handleNewName}
             required={true}
           />
 
-          <select onChange={handleSelectChange} defaultValue={'DEFAULT'}>
-            <option value="DEFAULT" disabled >
+          <select onChange={handleSelectChange} defaultValue={"DEFAULT"}>
+            <option value="DEFAULT" disabled>
               Como lo quiere ver?
             </option>
             <option value="colores">Colores</option>
@@ -274,9 +282,40 @@ export const AttributesAdmin = () => {
           <hr />
           {newAttribute.length
             ? newAttribute.map((att) => (
-                <span>
-                  {att.value} - {att.description} /{" "}
-                </span>
+                <>
+                  <div>{console.log(typeSelected)}</div>
+
+                  {typeSelected == "colores" && (
+                    <div
+                      style={{
+                        backgroundColor: att.description,
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        display: "inline-block",
+                        marginLeft: "10px",
+                      }}
+                    ></div>
+                  )}
+                  <span>{att.value} </span>
+                  {/* <div key={att.value}>
+                  {Editando[1][0].type.visualizationType == "Colores" && (
+                    <div
+                      style={{
+                        backgroundColor: att.description,
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        display: "inline-block",
+                        marginLeft: "10px",
+                      }}
+                    ></div>
+                  )}
+                  <span>{att.value} </span> */}
+                </>
+                // <span>
+                //   {att.value} - {att.description} /{" "}
+                // </span>
               ))
             : ""}
           <br />
@@ -315,13 +354,13 @@ export const AttributesAdmin = () => {
           </button>
         </>
         <hr />
-        <button onClick={closeModal}>Cancelar</button>
+        <button onClick={handleCancelarCrear}>Cancelar</button>
       </Modal>
 
       {/* MODAL PARA EDITAR */}
       <Modal
         isOpen={showModalEdit}
-        onRequestClose={closeModal} //para que se cierre tocando afuera de modal
+        onRequestClose={closeModalEdit} //para que se cierre tocando afuera de modal
         style={customStyles}
         contentLabel="Ejemplo Modal"
       >
