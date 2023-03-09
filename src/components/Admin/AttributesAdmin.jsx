@@ -387,7 +387,3 @@ export const AttributesAdmin = () => {
     </div>
   );
 };
-
-/* Se ve bien? */
-//si, correcto
-//hola
