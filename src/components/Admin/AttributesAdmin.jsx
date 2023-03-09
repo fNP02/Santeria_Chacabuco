@@ -389,4 +389,3 @@ export const AttributesAdmin = () => {
 };
 
 /* Se ve bien? */
-//si, correcto
