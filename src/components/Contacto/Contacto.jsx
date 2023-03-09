@@ -25,9 +25,9 @@ export const Contacto = () => {
       <iframe
         className="map"
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.237649771161!2d-64.18186819922528!3d-31.417440781340808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a29b0b4bb8a9%3A0x7ae638a6c9e5b7cb!2sSanter%C3%ADa%20Chacabuco!5e0!3m2!1ses-419!2sar!4v1677089605721!5m2!1ses-419!2sar"
-        allowfullscreen=""
+        allowFullScreen
         loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
+        referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
       <h1 className="title">Contacto</h1>
       <div className="information">
@@ -90,13 +90,13 @@ export const Contacto = () => {
         <div className="form" data-aos="fade-right" data-aos-duration="1000">
           <p className="form__title">Formulario de contacto</p>
           <form action="">
-            <label for="nombre">Nombre</label>
+            <label htmlFor="nombre">Nombre</label>
             <input type="text" id="nombre" name="nombre" />
 
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             <input type="email" id="email" name="email" />
 
-            <label for="mensaje">Mensaje</label>
+            <label htmlFor="mensaje">Mensaje</label>
             <textarea type="text" id="mensaje" name="mensaje" className="input" />
             <button className="submit">Enviar</button>
           </form>

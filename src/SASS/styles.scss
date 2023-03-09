@@ -11,6 +11,8 @@
 @import "./components/laEmpresa" ;
 @import './components/_contacto';
 
+@import './components/adminStyles/headerAdmin';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

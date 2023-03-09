@@ -1,15 +1,16 @@
 import { create } from "zustand";
+const API_URL = import.meta.env.VITE_API_URL
 
 export const useProducts = create((set, get) => ({
-  
   productsAll: [],
   products: [],
   categories: [],
+  attributes:[],
 
   getAllProducts: async () => {
     const token = localStorage.getItem("token");
     const prodsTraidos = await fetch(
-      `https://santeriachacabuco.up.railway.app/api/productos?page=1&limit=10&titulo=true`,
+      `${API_URL}/productos?page=1&limit=10&titulo=true`,
       {
         method: "GET",
         headers: {
@@ -60,22 +61,129 @@ export const useProducts = create((set, get) => ({
   getCategories: async () => {
     const token = localStorage.getItem("token");
     const response = await fetch(
-      "https://santeriachacabuco.up.railway.app/api/categorias",
+      `${API_URL}/categorias`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
       }
     );
     const data = await response.json();
-    //console.log("...............");
-    //console.log(data.data);
-    //const catsId = data.data.map((arr) => arr._id);
     const catsId = data.data;
-    //console.log(catsId);
     set({ categories: catsId });
   },
+
+  getAttributes: async () => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `${API_URL}/atributos`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      }
+    );
+    const data = await response.json();
+    const attrId = data.data;
+    let atributosPorNombre = attrId.reduce((resultado, atributo) => {
+      let nombre = atributo.type.name;
+      if (!resultado[nombre]) {
+        resultado[nombre] = [];
+      }
+      resultado[nombre].push(atributo);
+      return resultado;
+    }, {});
+    
+    set({ attributes: Object.entries(atributosPorNombre)});
+    //console.log(atributosPorNombre)
+  },
+
+  makeAttributesTypes: async (atributoType) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `${API_URL}/atributostypes`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(atributoType)
+      }
+    );
+    const data = await response.json();
+    const attrId = data.data;
+    return attrId
+  },
+
+  newAttributeValue: async (valuesToAdd) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `${API_URL}/atributos`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(valuesToAdd)
+      }
+    );
+    try {
+      const data = await response.json();
+      if (!response.ok) {
+        //codigos http 400 y 500
+        const errorMessage = data.data.message;
+        if (errorMessage == "FALTA LA DATA DEL PAYLOAD") {
+        }
+        console.log(errorMessage);
+      } else {
+        console.log(data.data._id);
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    // const data = await response.json();
+    // const attrId = data.data;
+    // return attrId
+  },
+
+  deleteAttributeValue: async (valuesToDelete) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `${API_URL}/atributos`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(valuesToDelete)
+      }
+    );
+    try {
+      const data = await response.json();
+      if (!response.ok) {
+        //codigos http 400 y 500
+        const errorMessage = data.data.message;
+        if (errorMessage == "FALTA LA DATA DEL PAYLOAD") {
+        }
+        console.log(errorMessage);
+      } else {
+        console.log(data.data._id);
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    // const data = await response.json();
+    // const attrId = data.data;
+    // return attrId
+  },
+
+  setAttributes: (newAttributes) => set({ attributes: newAttributes }),
 
   // setCategories: (newCategories) => set({ categories: newCategories })
 
@@ -87,4 +195,64 @@ export const useProducts = create((set, get) => ({
   //   }));
   //   console.log('productos recibidos');
   // },
+  makeProduct: async (newProduct) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `${API_URL}/productos`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newProduct),
+      }
+    );
+    try {
+      const data = await response.json();
+      if (!response.ok) {
+        //codigos http 400 y 500
+        const errorMessage = data.data.message;
+        if (errorMessage == "FALTA LA DATA DEL PAYLOAD") {
+        }
+        console.log(errorMessage);
+      } else {
+        console.log(data.data._id);
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  makeCategory: async (newProduct) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `${API_URL}/categorias`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newProduct),
+      }
+    );
+    try {
+      const data = await response.json();
+      if (!response.ok) {
+        //codigos http 400 y 500
+        const errorMessage = data.data.message;
+        if (errorMessage == "FALTA LA DATA DEL PAYLOAD") {
+        }
+        console.log(errorMessage);
+      } else {
+        console.log(data.data._id);
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
 }));

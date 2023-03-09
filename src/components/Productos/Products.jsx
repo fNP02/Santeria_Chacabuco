@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "./Card";
 import { useProducts } from "../../store/Products";
-import { useValidate } from "../../store/Vaidar";
+import { useValidate } from "../../store/Validar";
 
 import { useEffect, useState } from "react";
 
@@ -68,7 +68,7 @@ export const Products = () => {
       return normalizedTitle == normalizedSearchTerm;
     });
     setProducts(resultadoXCat);
-    return resultadoXCat
+    return resultadoXCat;
   };
 
   const handleMostrarTodos = () => {
@@ -76,7 +76,7 @@ export const Products = () => {
     ultimoTocado.classList.remove("activeCaregory");
   };
 
-  const [ultimoTocado, setUltimoTocado] = useState(null);  //para cambiar estilo a categoria activa
+  const [ultimoTocado, setUltimoTocado] = useState(null); //para cambiar estilo a categoria activa
   function categoryClick(e) {
     // Obtener el elemento que se tocó
     const elementoTocado = e.target.parentNode;
@@ -101,9 +101,9 @@ export const Products = () => {
           {categories.map((cat) => (
             <div key={cat._id} className="category">
               <button onClick={() => handleXCat(cat._id)}>
-              {cat.name}
-              {console.log(cat)}
-              <span>{cat.length}</span>
+                {cat.name}
+                {console.log(cat)}
+                <span>{cat.length}</span>
               </button>
             </div>
           ))}

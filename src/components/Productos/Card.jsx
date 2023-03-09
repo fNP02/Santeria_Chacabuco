@@ -18,7 +18,7 @@ export const Card = () => {
 
 
   useEffect(() => {
-    fetch(`https://santeriachacabuco.up.railway.app/api/productos/${productId}`)
+    fetch(`https://santeriachacabuco1.up.railway.app/api/productos/${productId}`)
     .then((response)=>response.json())
     .then((data)=>{setData(data.data)
     setUrl(data.data.variants[0].imagesId[0].url)})

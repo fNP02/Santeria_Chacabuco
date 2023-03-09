@@ -7,12 +7,14 @@ import { LaEmpresaPAGE } from "./pages/LaEmpresaPAGE";
 import { ContactoPAGE } from "./pages/ContactoPAGE";
 import { Card } from "./components/Productos/Card";
 import { Admin } from "./components/Admin/Admin";
-
+import { LogIn } from "./components/Admin/LogIn";
+import { CategoriesAdmin } from "./components/Admin/CategoriesAdmin";
+import { AttributesAdmin } from "./components/Admin/AttributesAdmin";
 
 
 import { useEffect} from "react";
 import { useProducts } from "./store/Products";
-import { useValidate } from "./store/Vaidar";
+import { useValidate } from "./store/Validar";
 import { useResults } from "./store/Busqueda"; // para ver si mostrar busqueda o productos
 
 
@@ -68,6 +70,8 @@ function App() {
     // }
   }, []);
 
+
+
   return (
     <BrowserRouter>
       <Routes>
@@ -79,7 +83,10 @@ function App() {
         <Route path="/contacto" element={<ContactoPAGE />} />
 
         {/* Admin */}
+        <Route path="/logIn" element={<LogIn />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/categories" element={<CategoriesAdmin />} />
+        <Route path="/admin/attributes" element={<AttributesAdmin />} />
       </Routes>
     </BrowserRouter>
   );

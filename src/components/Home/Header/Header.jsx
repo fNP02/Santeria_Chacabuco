@@ -111,7 +111,7 @@ function Header() {
               >
                 Contacto
               </Link>
-              <Link data-active="admin" to="/admin">
+              <Link data-active="admin" to="/logIn">
                 Admin
               </Link>
             </li>

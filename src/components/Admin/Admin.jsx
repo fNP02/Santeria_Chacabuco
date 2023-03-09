@@ -1,187 +1,180 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import jwtDecode from "jwt-decode";
+import { HeaderAdmin } from "./HeaderAdmin";
+import { ProductsTable } from "./ProductsTable";
+
+import { useProducts } from "../../store/Products";
+
+//modal
+import Modal from "react-modal";
+Modal.setAppElement("#root");
 
 export const Admin = () => {
-  const dato = JSON.stringify({
-    email: "santeriachacabuco@gmail.com",
-    password: "chacabuco0202",
-  });
-
-  const [dataCats, setData] = useState([]);
-  const [productos, setProductos] = useState([]);
-  const [productosTodos, setProductosTodos] = useState([]);
-  const [ordenados, setOrdenados] = useState([]);
-
-  const handleSubmit = async (e) => {
-    fetch("https://santeriachacabuco.up.railway.app/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: dato,
-    })
-      .then((response) => {
-        const reader = response.body.getReader();
-        let data = "";
-        return reader.read().then(function processResult(result) {
-          if (result.done) {
-            const token = JSON.parse(data).data.token; // Obtener el token de la respuesta
-            console.log(JSON.parse(data).data.token);
-            localStorage.setItem("token", token);
-            // Hacer algo con el token
-            return token;
-          }
-          data += new TextDecoder().decode(result.value);
-          return reader.read().then(processResult);
-        });
-      })
-      .catch((error) => console.error(error));
-    console.log(localStorage.getItem("token"));
+  ////// para modal
+  const customStyles = {
+    content: {
+      height: "500px",
+      width: "800px",
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
   };
 
-  const handleProducts = async () => {
-    const id = "63ec06b0aebd1f933c172f5d";
-    const token = localStorage.getItem("token");
-    const prodsTraidos = await fetch(
-      `https://santeriachacabuco.up.railway.app/api/productos?page=1&limit=10&titulo=true`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    try {
-      const data = await prodsTraidos.json();
-      setProductosTodos(data.data);
-      console.log(productosTodos);
-    } catch (e) {
-      console.log(e);
-    }
-    // let prods = data.data;
-    // setProductosTodos(prods)
-    // console.log(productosTodos);
-  };
 
-  const handleProductsxCats = async (cat) => {
-    //devuelve un array por categoria
-    const token = localStorage.getItem("token");
-    let prods = [];
-    const categoriaTemp = await fetch(
-      `https://santeriachacabuco.up.railway.app/api/productos?page=1&limit=10&categoria=${cat}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    try {
-      let data = await categoriaTemp.json();
-      console.log(data.data);
-      setProductos([...productos, data.data]);
-    } catch (e) {
-      console.log(e);
-    }
-    //.then((response) => response.json())
-    // .then(async (data) => {
-    //  prods = await data.data;
-    //  setProductos(prods)
-    // setProductos((prevState) =>
-    //   prevState.concat(prods)
-    // );
-    //console.log(cat);
-    //console.log('------------');
-    // console.log(productos);
-  };
 
-  const handleCats = async () => {
-    const id = "63ec06b0aebd1f933c172f5d";
-    const token = localStorage.getItem("token");
-    const response = await fetch(
-      "https://santeriachacabuco.up.railway.app/api/categorias",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await response.json();
-    setData(data);
-    const catsId = data.data.map((arr) => arr._id);
-    setProductos([]);
-    console.log(catsId);
-    catsId.forEach((categoria) => {
-      handleProductsxCats(categoria);
-      //console.log("segundo log" + productos);
-    });
-    //console.log(productos)
-    // cats.map((cat) => {
-    //   console.log(handleProductsxCats(cat.name).lenght);
-    // });
-  };
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : undefined
+  );
+  const navigate = useNavigate();
 
-  // localStorage.getItem('token')
+  const { categories, makeProduct, productsAll, setProducts } = useProducts();
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
 
-  const handleOrdenar = () => {
-    const ordenados = productosTodos.reduce((resultado, objeto) => {
-      // Buscamos si el arreglo de la categoría ya existe en el resultado
-      const arregloCategoria = resultado.find(arr => arr[0].categoryId._id === objeto.categoryId._id);
-    
-      if (arregloCategoria) {
-        // Si ya existe, agregamos el objeto al arreglo de la categoría correspondiente
-        arregloCategoria.push(objeto);
+  //variantes
+  const [newVariants, setNewVariants] = useState([
+    {
+      colorsId: ["63ec5477d4c289b4290ced12"],
+      sizesId: ["63ec5435d4c289b4290ced02"],
+      imagesId: ["63ec5420d4c289b4290cecfb"],
+      price: 3500,
+    },
+  ]);
+
+  useEffect(() => {
+    if (token == undefined) {
+      navigate("/logIn");
+      alert("sin usuario");
+    } else {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      const tokenExpiration = decodedToken?.exp;
+      if (tokenExpiration < currentTime) {
+        console.log("El token ha expirado");
+        localStorage.removeItem("token");
+        navigate("/logIn");
       } else {
-        // Si no existe, creamos un nuevo arreglo para la categoría y lo agregamos al resultado
-        resultado.push([objeto]);
+        console.log("El token es válido");
       }
-    
-      return resultado;
-    }, []);
-  
-    
-    ordenados.forEach(productosXCat => {
-      let nombreCategoria = productosXCat[0].categoryId.name
-      productosXCat.unshift(nombreCategoria);
-    });
-    console.log(ordenados);
-    setProductosTodos(ordenados)
+    }
+  }, [token]);
+
+  useEffect(() => {
+    //con cambio en arreglo de productos, actualiza todos los productos
+    setProducts(productsAll);
+  }, [productsAll]);
+
+  const handleMostrarCats = () => {
+    console.log(categories);
   };
 
-  const mostrar=()=>{
-    const amostrar = productosTodos.filter(prod=>prod[0] == 'santos')
-    console.log(amostrar);
-  }
-  
+  const handleNewTitle = (e) => {
+    setNewTitle(e.target.value);
+  };
+
+  const handleNewDescription = (e) => {
+    setNewDescription(e.target.value);
+  };
+
+  const handleNewProduct = () => {
+    const producto = {
+      title: newTitle,
+      description: newDescription,
+      categoryId: categoriaSeleccionada._id,
+    };
+    //console.log(JSON.stringify(producto));
+    makeProduct(producto);
+  };
+
   return (
-    <>
-      <Link data-active="index" to="/">
-        Volver
-      </Link>
-      <div>Admin</div>
+    <div>
+      <HeaderAdmin />
+      <h1>pagina de admin</h1>
+      <div>
+        <h2>Crear Producto</h2>
 
-      <input type="text" name="" id="" placeholder="email" />
-      <input type="text" name="" id="" placeholder="pass" />
-      <button onClick={handleSubmit}>Entrar</button>
-      <hr />
+        <select
+          value={categoriaSeleccionada?._id}
+          onChange={(e) => {
+            setCategoriaSeleccionada(
+              categories.find((elemento) => elemento._id == e.target.value)
+            );
+            console.log(categoriaSeleccionada);
+          }}
+        >
+          <option value="">Seleccione una categoría</option>
+          {categories.map((elemento) => (
+            <option key={elemento._id} value={elemento._id}>
+              {elemento.name}
+            </option>
+          ))}
+        </select>
+        <input
+          type="text"
+          placeholder="Nombre del producto"
+          onChange={handleNewTitle}
+          required="true"
+        />
+        <input
+          type="text"
+          placeholder="Descripcion del producto"
+          onChange={handleNewDescription}
+        />
+        <hr />
+        <h2>LIsta de variantes:</h2>
+        {newVariants.map((variant) => (
+          <div key={variant._id}>
+            <span>{variant.name}</span>
+          </div>
+        ))}
+        <hr />
+        <hr />
+        <br />
+        <hr />
+      
+        <button onClick={openModal}>+ Agregar variante</button>
+        <hr />
+        <button onClick={handleNewProduct}>{"> CREAR PRODUCTO"}</button>
+        <Modal
+          isOpen={showModal}
+          //onRequestClose={closeModal}  //para que se cierre tocando afuera de modal
+          style={customStyles}
+          contentLabel="Ejemplo Modal"
+        >
+          <>
+            <select name="" id="">
+              <option value="">Seleccione un atributo</option>
+              {newVariants.map((variant) => (
+                <option key={variant._id} value={variant._id}>
+                  {variant.name}
+                </option>
+              ))}
+            </select>
+            
 
-      <button onClick={handleProducts}>Traer productos</button>
-      <hr />
-      <button onClick={handleCats}>Traer cats</button>
+            <button>AGREGAR</button>
+          </>
+          <hr />
+          <button onClick={closeModal}>Cancelar</button>
+        </Modal>
+      </div>
 
       <hr />
-      <button
-        onClick={() => {
-          handleProductsxCats("63ed59cd56406598a0505679");
-        }}
-      >
-        btn test
-      </button>
-      <hr />
-      <button onClick={handleOrdenar}>ordenar</button>
-      <hr />
-      <button onClick={mostrar}>mostrar</button>
-    </>
+      <ProductsTable productsAll={productsAll} />
+    </div>
   );
 };
