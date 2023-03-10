@@ -107,7 +107,8 @@ export const useProducts = create((set, get) => ({
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(atributoType)
       }

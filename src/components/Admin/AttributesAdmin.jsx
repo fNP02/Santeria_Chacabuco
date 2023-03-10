@@ -2,6 +2,9 @@ import { HeaderAdmin } from "./HeaderAdmin";
 import { useProducts } from "../../store/Products";
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+
 //modal
 import Modal from "react-modal";
 Modal.setAppElement("#root");
@@ -32,6 +35,28 @@ export const AttributesAdmin = () => {
   useEffect(() => {
     getAttributes();
   }, [attributes]);
+
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : undefined
+  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (token == undefined) {
+      navigate("/logIn");
+      alert("sin usuario");
+    } else {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      const tokenExpiration = decodedToken?.exp;
+      if (tokenExpiration < currentTime) {
+        console.log("El token ha expirado");
+        localStorage.removeItem("token");
+        navigate("/logIn");
+      } else {
+        console.log("El token es válido");
+      }
+    }
+  }, [token]);
 
   //modal
   const customStyles = {
@@ -68,17 +93,17 @@ export const AttributesAdmin = () => {
   const [nuevoColor, setNuevoColor] = useState("");
 
   //CREAR ATRIBUTO
-  const handleNewName = (e) => {
+  const handleNewName = (e) => {  //Nombre del atributo
     setNewName(e.target.value);
   };
-  const handleNewDescription = (e) => {
+  const handleNewDescription = (e) => {   //descripcion, hexa de color
     setNewDescription(e.target.value);
   };
-  const handleNewType = (e) => {
+  const handleNewType = (e) => {   //  visualizationType, color o lista
     setNewType(e.target.value);
   };
 
-  const handleNewAttribute = () => {
+  const handleNewAttribute = async() => {
     if (typeSelected === "") {
       setShowErrorMessage(true); // mostrar el mensaje de error si el usuario no ha seleccionado una opción válida
     } else {
@@ -88,17 +113,18 @@ export const AttributesAdmin = () => {
         name: newName,
         visualizationType: newType,
       };
-      const atributoTypeCreado = makeAttributesTypes(atributoType);
+      const atributoTypeCreado = await makeAttributesTypes(atributoType);
       newAttribute.map((att) => {
         let atributo = {
           value: att.value,
           description: att.description,
           type: atributoTypeCreado._id,
         };
+        console.log(atributoTypeCreado);
+        console.log(atributo);
       });
 
-      console.log(JSON.stringify(atributo));
-      closeModal();
+      //closeModalCrear();
     }
   };
 
@@ -189,6 +215,7 @@ export const AttributesAdmin = () => {
     if (Array.isArray(valoresEliminados) && valoresEliminados.length > 0) {
       deleteAttributeValue(valuesToDelete);
     }
+    console.log(valuesToDelete);
 
     setValoresEliminados([]);
     setValoresAgregados([]);
@@ -200,6 +227,7 @@ export const AttributesAdmin = () => {
     closeModalEdit();
     setValoresEliminados([]);
     setValoresAgregados([]);
+    //setNuevoValor('')
   };
   // console.log(attributes);
 
@@ -283,8 +311,6 @@ export const AttributesAdmin = () => {
           {newAttribute.length
             ? newAttribute.map((att) => (
                 <>
-                  <div>{console.log(typeSelected)}</div>
-
                   {typeSelected == "colores" && (
                     <div
                       style={{
@@ -401,7 +427,7 @@ export const AttributesAdmin = () => {
               value={nuevoValor}
             />
 
-            {/* Input para seleccionar color en caso de que sea de tipo colores */}
+            {/* Input para seleccionar color en caso de que sea de tipo colores  */}
             {esColor && (
               <input
                 type="color"
