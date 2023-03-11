@@ -20,8 +20,8 @@ export const AttributesAdmin = () => {
     deleteAttributeValue,
   } = useProducts();
   const [newName, setNewName] = useState("");
-  const [newDescription, setNewDescription] = useState("");
-  const [newType, setNewType] = useState("");
+  const [newDescription, setNewDescription] = useState("#000000");
+  const [newValue, setNewValue] = useState("");
   const [typeSelected, setTypeSelected] = useState("");
   const [isButtonAttributeDisabled, setIsButtonAttributeDisabled] =
     useState(true);
@@ -32,9 +32,9 @@ export const AttributesAdmin = () => {
     getAttributes();
   }, []);
 
-  useEffect(() => {
-    getAttributes();
-  }, [attributes]);
+  // useEffect(() => {
+  //   getAttributes();
+  // }, [attributes]);
 
   const [token, setToken] = useState(
     localStorage.getItem("token") ? localStorage.getItem("token") : undefined
@@ -93,17 +93,23 @@ export const AttributesAdmin = () => {
   const [nuevoColor, setNuevoColor] = useState("");
 
   //CREAR ATRIBUTO
-  const handleNewName = (e) => {  //Nombre del atributo
+  const handleNewName = (e) => {
+    //Nombre del atributo
     setNewName(e.target.value);
   };
-  const handleNewDescription = (e) => {   //descripcion, hexa de color
+  const handleNewDescription = (e) => {
+    //descripcion, hexa de color
     setNewDescription(e.target.value);
   };
-  const handleNewType = (e) => {   //  visualizationType, color o lista
-    setNewType(e.target.value);
+  const handleNewValue = (e) => {
+    //  valor
+    setNewValue(e.target.value);
   };
 
-  const handleNewAttribute = async() => {
+  const handleNewAttribute = async () => {
+    let atributoNuevo = [];
+    let aMandar;
+
     if (typeSelected === "") {
       setShowErrorMessage(true); // mostrar el mensaje de error si el usuario no ha seleccionado una opción válida
     } else {
@@ -111,21 +117,29 @@ export const AttributesAdmin = () => {
       // aquí va el código que se ejecuta cuando se hace clic en el botón "Continuar"
       const atributoType = {
         name: newName,
-        visualizationType: newType,
+        visualizationType: typeSelected,
       };
+
       const atributoTypeCreado = await makeAttributesTypes(atributoType);
+
       newAttribute.map((att) => {
         let atributo = {
           value: att.value,
           description: att.description,
           type: atributoTypeCreado._id,
         };
-        console.log(atributoTypeCreado);
-        console.log(atributo);
+
+        atributoNuevo = [...atributoNuevo, atributo];
       });
+
+      aMandar = { atributos: atributoNuevo };
+      console.log(aMandar);
+      newAttributeValue(atributoNuevo);
 
       //closeModalCrear();
     }
+
+    console.log(atributoNuevo);
   };
 
   const handleSelectChange = (event) => {
@@ -138,15 +152,20 @@ export const AttributesAdmin = () => {
   const handleAddValue = (e) => {
     e.preventDefault();
     let attribute = {
-      value: newType,
+      value: newValue,
       description: newDescription,
     };
     setNewAttribute([...newAttribute, attribute]);
+    setNewValue("");
+    setNewDescription("#000000");
   };
 
   const handleCancelarCrear = () => {
     closeModalCrear();
     setNewAttribute([]);
+    setNewValue("");
+    setNewDescription("#000000");
+    setTypeSelected("");
   };
 
   //EDITAR ATRIBUTO
@@ -159,10 +178,20 @@ export const AttributesAdmin = () => {
   };
   const handleAgregarValor = () => {
     if (nuevoValor.trim()) {
-      setEditando([
-        Editando[0],
-        [...Editando[1], { value: nuevoValor, description: nuevoColor }],
-      ]);
+      let noExiste = true;
+      Editando.map((ed) => {
+        if (nuevoValor == ed.value) {
+          noExiste = false;
+        }
+      });
+
+      noExiste &&
+        setEditando([
+          Editando[0],
+          [...Editando[1], { value: nuevoValor, description: nuevoColor }],
+        ]);
+      noExiste = true;
+      console.log(Editando);
 
       if (esColor) {
         setValoresAgregados([
@@ -196,12 +225,13 @@ export const AttributesAdmin = () => {
     setEditando([Editando[0], valores]);
     console.log(Editando[1][index]._id);
 
-    setValoresEliminados([
-      ...valoresEliminados,
-      {
-        _id: Editando[1][index]._id,
-      },
-    ]);
+    Editando[1][index]._id ??
+      setValoresEliminados([
+        ...valoresEliminados,
+        {
+          _id: Editando[1][index]._id,
+        },
+      ]);
 
     console.log(valoresEliminados);
   };
@@ -253,7 +283,7 @@ export const AttributesAdmin = () => {
                   if (variedad.type.visualizationType == "Colores") {
                     return (
                       <div
-                        key={variedad.value}
+                        key={variedad._id}
                         style={{
                           backgroundColor: variedad.description,
                           width: "20px",
@@ -351,6 +381,7 @@ export const AttributesAdmin = () => {
               type="color"
               placeholder="Descripcion"
               onChange={handleNewDescription}
+              value={newDescription}
               required={true}
             />
           )}
@@ -358,7 +389,8 @@ export const AttributesAdmin = () => {
           <input
             type="text"
             placeholder="nuevo valor"
-            onChange={handleNewType}
+            onChange={handleNewValue}
+            value={newValue}
             required={true}
           />
           <button onClick={handleAddValue}>
@@ -395,7 +427,7 @@ export const AttributesAdmin = () => {
           <div>
             {Editando[1] &&
               Editando[1].map((att, index) => (
-                <div key={att.value}>
+                <div key={att._id}>
                   {Editando[1][0].type.visualizationType == "Colores" && (
                     <div
                       style={{

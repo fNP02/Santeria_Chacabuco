@@ -151,6 +151,36 @@ export const useProducts = create((set, get) => ({
     // return attrId
   },
 
+  newAttribute: async (attributeToAdd) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `${API_URL}/atributos`, 
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(attributeToAdd)
+      }
+    );
+    try {
+      const data = await response.json();
+      if (!response.ok) {
+        //codigos http 400 y 500
+        const errorMessage = data.data.message;
+        if (errorMessage == "FALTA LA DATA DEL PAYLOAD") {
+        }
+        console.log(errorMessage);
+      } else {
+        console.log(data.data._id);
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   deleteAttributeValue: async (valuesToDelete) => {
     const token = localStorage.getItem("token");
     const response = await fetch(

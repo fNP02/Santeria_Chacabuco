@@ -15,8 +15,8 @@ export const Admin = () => {
   ////// para modal
   const customStyles = {
     content: {
-      height: "500px",
-      width: "800px",
+      height: "300px",
+      width: "300px",
       top: "50%",
       left: "50%",
       right: "auto",
@@ -32,8 +32,6 @@ export const Admin = () => {
   const closeModal = () => {
     setShowModal(false);
   };
-
-
 
   const [token, setToken] = useState(
     localStorage.getItem("token") ? localStorage.getItem("token") : undefined
@@ -117,11 +115,16 @@ export const Admin = () => {
           }}
         >
           <option value="">Seleccione una categoría</option>
-          {categories.map((elemento) => (
-            <option key={elemento._id} value={elemento._id}>
-              {elemento.name}
-            </option>
-          ))}
+          {Array.isArray(categories) && categories.length > 0 ? (
+            categories?.map((elemento) => (
+              <option key={elemento} value={elemento._id}>
+                {elemento.name}
+                {console.log(elemento._id)}
+              </option>
+            ))
+          ) : (
+            <p>Cargando...</p>
+          )}
         </select>
         <input
           type="text"
@@ -145,7 +148,7 @@ export const Admin = () => {
         <hr />
         <br />
         <hr />
-      
+
         <button onClick={openModal}>+ Agregar variante</button>
         <hr />
         <button onClick={handleNewProduct}>{"> CREAR PRODUCTO"}</button>
@@ -164,7 +167,6 @@ export const Admin = () => {
                 </option>
               ))}
             </select>
-            
 
             <button>AGREGAR</button>
           </>
