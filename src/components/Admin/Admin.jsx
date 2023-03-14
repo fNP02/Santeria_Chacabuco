@@ -117,9 +117,8 @@ export const Admin = () => {
           <option value="">Seleccione una categoría</option>
           {Array.isArray(categories) && categories.length > 0 ? (
             categories?.map((elemento) => (
-              <option key={elemento} value={elemento._id}>
+              <option key={elemento._id} value={elemento._id}>
                 {elemento.name}
-                {console.log(elemento._id)}
               </option>
             ))
           ) : (

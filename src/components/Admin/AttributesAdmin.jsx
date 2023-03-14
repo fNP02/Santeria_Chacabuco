@@ -32,9 +32,9 @@ export const AttributesAdmin = () => {
     getAttributes();
   }, []);
 
-  // useEffect(() => {
-  //   getAttributes();
-  // }, [attributes]);
+  useEffect(() => {
+    getAttributes();
+  }, [attributes]);
 
   const [token, setToken] = useState(
     localStorage.getItem("token") ? localStorage.getItem("token") : undefined
@@ -90,7 +90,7 @@ export const AttributesAdmin = () => {
   const [valoresAgregados, setValoresAgregados] = useState([]);
   const [valoresEliminados, setValoresEliminados] = useState([]);
   const [nuevoValor, setNuevoValor] = useState("");
-  const [nuevoColor, setNuevoColor] = useState("");
+  const [nuevoColor, setNuevoColor] = useState("#000000");
 
   //CREAR ATRIBUTO
   const handleNewName = (e) => {
@@ -191,7 +191,7 @@ export const AttributesAdmin = () => {
           [...Editando[1], { value: nuevoValor, description: nuevoColor }],
         ]);
       noExiste = true;
-      console.log(Editando);
+      // console.log(Editando);
 
       if (esColor) {
         setValoresAgregados([
@@ -211,7 +211,7 @@ export const AttributesAdmin = () => {
           },
         ]);
       }
-      console.log(valoresAgregados);
+      // console.log(valoresAgregados);
 
       setNuevoValor("");
       setNuevoColor("#000000");
@@ -223,17 +223,24 @@ export const AttributesAdmin = () => {
     const valores = [...Editando[1]];
     valores.splice(index, 1);
     setEditando([Editando[0], valores]);
-    console.log(Editando[1][index]._id);
+    // console.log(Editando[1][index]._id);
 
-    Editando[1][index]._id ??
+    if (Editando[1][index]._id) {
       setValoresEliminados([
         ...valoresEliminados,
         {
           _id: Editando[1][index]._id,
         },
       ]);
-
-    console.log(valoresEliminados);
+    } else {
+      const agregados = valoresAgregados;
+      // console.log(agregados);
+      // console.log(Editando[1][index].value);
+      const nuevos = agregados.filter(valor=>valor.value !== Editando[1][index].value);
+      console.log(nuevos);
+      setValoresAgregados(nuevos)
+    }
+    // console.log(valoresEliminados);
   };
 
   const handleGuardarCambios = () => {
@@ -343,6 +350,7 @@ export const AttributesAdmin = () => {
                 <>
                   {typeSelected == "colores" && (
                     <div
+                      key={att._id ?? att.value}
                       style={{
                         backgroundColor: att.description,
                         width: "20px",
