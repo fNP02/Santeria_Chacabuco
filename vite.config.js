@@ -5,6 +5,6 @@ import { faHouseTsunami } from '@fortawesome/free-solid-svg-icons'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/Santeria_Chacabuco/",
+  //base: "/Santeria_Chacabuco/",
  
 })
